@@ -16,7 +16,7 @@
         android:shadowRadius="1.6"
         android:contentDescription="@string/appwidget_text"
         android:text="@string/appwidget_text"
-        android:textColor="#ddd"
+        android:textColor="#eee"
          />
 
 </RelativeLayout>
