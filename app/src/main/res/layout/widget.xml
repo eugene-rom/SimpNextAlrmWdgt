@@ -16,8 +16,7 @@
         android:shadowRadius="1.6"
         android:drawableLeft="@android:drawable/ic_lock_idle_alarm"
         android:drawablePadding="5dp"
-        android:contentDescription="@string/appwidget_text"
-        android:text="@string/appwidget_text"
+        android:text="@string/appwidget_undefined_text"
         android:textColor="#ddd"
         android:clickable="true"
          />

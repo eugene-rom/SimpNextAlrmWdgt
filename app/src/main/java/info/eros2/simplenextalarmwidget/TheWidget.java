@@ -25,7 +25,7 @@ public class TheWidget extends AppWidgetProvider
                                         Settings.System.NEXT_ALARM_FORMATTED );
 
         if ( ( nextAlarm == null ) || nextAlarm.isEmpty() ) {
-            nextAlarm = context.getString( R.string.appwidget_text );
+            nextAlarm = context.getString( R.string.appwidget_empty_text);
         }
 
         // Construct the RemoteViews object
