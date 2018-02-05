@@ -22,7 +22,7 @@ public class TheWidget extends AppWidgetProvider
 
         @SuppressWarnings("deprecation")
         String nextAlarm = Settings.System.getString( context.getContentResolver(),
-                Settings.System.NEXT_ALARM_FORMATTED );
+                                        Settings.System.NEXT_ALARM_FORMATTED );
 
         if ( ( nextAlarm == null ) || nextAlarm.isEmpty() ) {
             nextAlarm = context.getString( R.string.appwidget_text );
