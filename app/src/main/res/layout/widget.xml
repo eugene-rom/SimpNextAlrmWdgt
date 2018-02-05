@@ -19,6 +19,7 @@
         android:contentDescription="@string/appwidget_text"
         android:text="@string/appwidget_text"
         android:textColor="#ddd"
+        android:clickable="true"
          />
 
 </RelativeLayout>
