@@ -23,7 +23,7 @@ public class TheWidget extends AppWidgetProvider
 
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews( context.getPackageName(), R.layout.widget );
-        views.setTextViewText( R.id.appwidget_text, "\u23f0  " + nextAlarm );
+        views.setTextViewText( R.id.appwidget_text, nextAlarm );
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget( appWidgetId, views );

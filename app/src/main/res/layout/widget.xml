@@ -14,9 +14,11 @@
         android:shadowDx="1.5"
         android:shadowDy="1.3"
         android:shadowRadius="1.6"
+        android:drawableLeft="@android:drawable/ic_lock_idle_alarm"
+        android:drawablePadding="5dp"
         android:contentDescription="@string/appwidget_text"
         android:text="@string/appwidget_text"
-        android:textColor="#eee"
+        android:textColor="#ddd"
          />
 
 </RelativeLayout>
