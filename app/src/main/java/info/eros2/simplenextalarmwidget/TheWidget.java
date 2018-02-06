@@ -41,7 +41,7 @@ public class TheWidget extends AppWidgetProvider
         }
 
         if ( ( nextAlarm == null ) || nextAlarm.isEmpty() ) {
-            nextAlarm = context.getString( R.string.appwidget_empty_text);
+            nextAlarm = context.getString( R.string.appwidget_empty_text );
         }
 
         // Construct the RemoteViews object
