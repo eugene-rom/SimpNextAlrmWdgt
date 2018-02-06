@@ -1,5 +1,6 @@
 # SimpNextAlrmWdgt
 
-Very simple android widget showing next alarm time
+Very simple android widget showing next alarm time.
+No settings, no shortcut. Just add widget to screen.
 
-Currently unfinished, no any settings, etc.
+![screenshot](screenshot.png?raw=true)

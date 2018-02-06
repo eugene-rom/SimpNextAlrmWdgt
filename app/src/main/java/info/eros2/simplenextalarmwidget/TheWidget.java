@@ -14,11 +14,13 @@ public class TheWidget extends AppWidgetProvider
 {
     private static final String TAP_INTENT = "info.eros2.simplenextalarmwidget.TAP_WIDGET";
 
+    private final Intent tapIntent = new Intent( TAP_INTENT );
+
     @Override
     public void onUpdate( Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds )
     {
         PendingIntent pendingIntent = PendingIntent.getBroadcast( context, 0,
-                                new Intent( TAP_INTENT ), PendingIntent.FLAG_UPDATE_CURRENT );
+                                                tapIntent, PendingIntent.FLAG_UPDATE_CURRENT );
 
         @SuppressWarnings("deprecation")
         String nextAlarm = Settings.System.getString( context.getContentResolver(),
