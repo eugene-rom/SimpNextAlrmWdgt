@@ -15,34 +15,13 @@ import android.widget.RemoteViews;
 public class TheWidget extends AppWidgetProvider
 {
     private static final String TAP_INTENT = "info.eros2.simplenextalarmwidget.TAP_WIDGET";
-
     private final Intent tapIntent = new Intent( TAP_INTENT );
 
     @Override
     public void onUpdate( Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds )
     {
         PendingIntent pendingIntent = PendingIntent.getBroadcast( context, 0, tapIntent, PendingIntent.FLAG_UPDATE_CURRENT );
-
-        String nextAlarm = null;
-
-        AlarmManager am = (AlarmManager)context.getSystemService( Context.ALARM_SERVICE );
-        if ( am == null ) {
-            // Can't get AlarmManager, use deprecated method
-            //noinspection deprecation
-            nextAlarm = Settings.System.getString( context.getContentResolver(), Settings.System.NEXT_ALARM_FORMATTED );
-        }
-        else
-        {
-            AlarmManager.AlarmClockInfo nextAlarmClock = am.getNextAlarmClock();
-            if ( nextAlarmClock != null ) {
-                // Format alarm time as e.g. "Di. 06:30"
-                nextAlarm = DateFormat.format("EEE HH:mm", nextAlarmClock.getTriggerTime() ).toString();
-            }
-        }
-
-        if ( ( nextAlarm == null ) || nextAlarm.isEmpty() ) {
-            nextAlarm = context.getString( R.string.appwidget_empty_text );
-        }
+        String nextAlarm = getNextAlarmString( context );
 
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews( context.getPackageName(), R.layout.widget );
@@ -77,6 +56,32 @@ public class TheWidget extends AppWidgetProvider
 
     @Override
     public void onDisabled( Context context ) {
+    }
+
+    private static String getNextAlarmString( Context context )
+    {
+        String res = null;
+        AlarmManager am = (AlarmManager)context.getSystemService( Context.ALARM_SERVICE );
+
+        if ( am == null ) {
+            // Can't get AlarmManager, use deprecated method
+            //noinspection deprecation
+            res = Settings.System.getString( context.getContentResolver(), Settings.System.NEXT_ALARM_FORMATTED );
+        }
+        else
+        {
+            AlarmManager.AlarmClockInfo nextAlarmClock = am.getNextAlarmClock();
+            if ( nextAlarmClock != null ) {
+                // Format alarm time as e.g. "Di. 06:30"
+                res = DateFormat.format("EEE HH:mm", nextAlarmClock.getTriggerTime() ).toString();
+            }
+        }
+
+        if ( ( res == null ) || res.isEmpty() ) {
+            res = context.getString( R.string.appwidget_empty_text );
+        }
+
+        return res;
     }
 }
 
