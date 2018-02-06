@@ -1,5 +1,6 @@
 package info.eros2.simplenextalarmwidget;
 
+import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -8,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.provider.AlarmClock;
 import android.provider.Settings;
+import android.text.format.DateFormat;
 import android.widget.RemoteViews;
 
 public class TheWidget extends AppWidgetProvider
@@ -19,12 +21,24 @@ public class TheWidget extends AppWidgetProvider
     @Override
     public void onUpdate( Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds )
     {
-        PendingIntent pendingIntent = PendingIntent.getBroadcast( context, 0,
-                                                tapIntent, PendingIntent.FLAG_UPDATE_CURRENT );
+        PendingIntent pendingIntent = PendingIntent.getBroadcast( context, 0, tapIntent, PendingIntent.FLAG_UPDATE_CURRENT );
 
-        @SuppressWarnings("deprecation")
-        String nextAlarm = Settings.System.getString( context.getContentResolver(),
-                                        Settings.System.NEXT_ALARM_FORMATTED );
+        String nextAlarm = null;
+
+        AlarmManager am = (AlarmManager)context.getSystemService( Context.ALARM_SERVICE );
+        if ( am == null ) {
+            // Can't get AlarmManager, use deprecated method
+            //noinspection deprecation
+            nextAlarm = Settings.System.getString( context.getContentResolver(), Settings.System.NEXT_ALARM_FORMATTED );
+        }
+        else
+        {
+            AlarmManager.AlarmClockInfo nextAlarmClock = am.getNextAlarmClock();
+            if ( nextAlarmClock != null ) {
+                // Format alarm time as e.g. "Di. 06:30"
+                nextAlarm = DateFormat.format("EEE HH:mm", nextAlarmClock.getTriggerTime() ).toString();
+            }
+        }
 
         if ( ( nextAlarm == null ) || nextAlarm.isEmpty() ) {
             nextAlarm = context.getString( R.string.appwidget_empty_text);
